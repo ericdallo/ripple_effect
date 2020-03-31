@@ -1,64 +1,93 @@
 import 'package:flutter/material.dart';
+import 'package:ripple_effect/ripple_effect.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ripple Effect Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: new ThemeData(
+        primarySwatch: Colors.purple,
+        primaryColor: Colors.blue,
+        fontFamily: 'Museo Sans',
       ),
-      home: MyHomePage(title: 'Ripple Effect Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class HomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class _HomePageState extends State<HomePage> {
+  final pageKey = RipplePage.createGlobalKey();
+  final effectKey = RippleEffect.createGlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+    return RipplePage(
+      pageKey: pageKey,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text('Home')),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        body: Center(),
+        floatingActionButton: RippleEffect(
+          pageKey: pageKey,
+          effectKey: effectKey,
+          color: Colors.purple,
+          child: FloatingActionButton(
+            onPressed: () => RippleEffect.start(effectKey, toNextPage),
+            child: Icon(Icons.cake),
+          ),
+        ),
       ),
     );
   }
+
+  Future<void> toNextPage() => Navigator.of(context).push(
+        FadeRouteBuilder(
+          page: SecondPage(),
+        ),
+      );
+}
+
+class SecondPage extends StatelessWidget {
+  final pageKey = RipplePage.createGlobalKey();
+  final effectKey = RippleEffect.createGlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    return RipplePage(
+      pageKey: pageKey,
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.purple,
+            title: Center(child: Text('Second Page')),
+          ),
+          body: Center(),
+          floatingActionButton: RippleEffect(
+            pageKey: pageKey,
+            effectKey: effectKey,
+            color: Colors.blue,
+            child: FloatingActionButton(
+              backgroundColor: Colors.blue,
+              onPressed: () =>
+                  RippleEffect.start(effectKey, () => toNextPage(context)),
+              child: Icon(Icons.arrow_back),
+            ),
+          )),
+    );
+  }
+
+  Future<void> toNextPage(BuildContext context) => Navigator.of(context).push(
+        FadeRouteBuilder(
+          page: HomePage(),
+        ),
+      );
 }

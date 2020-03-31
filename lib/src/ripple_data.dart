@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 
-import 'ripple_effect.dart';
-
 class RippleData {
-  RippleData(this.rippleState, this.rect, this.color);
+  RippleData({
+    @required this.context,
+    @required this.color,
+    @required this.animationDuration,
+    @required this.delay,
+    @required this.shape,
+    @required this.inflateMultiplier,
+  });
 
-  RippleState rippleState;
+  final BuildContext context;
+  final Color color;
+  final Duration animationDuration;
+  final Duration delay;
+  final BoxShape shape;
+  final double inflateMultiplier;
+
   Rect rect;
-  Color color;
 
   Widget toWidget() {
     if (rect == null) {
@@ -17,15 +27,15 @@ class RippleData {
     return AnimatedPositioned(
       left: rect.left,
       top: rect.top,
-      right: MediaQuery.of(rippleState.context).size.width - rect.right,
-      bottom: MediaQuery.of(rippleState.context).size.height - rect.bottom,
+      right: MediaQuery.of(context).size.width - rect.right,
+      bottom: MediaQuery.of(context).size.height - rect.bottom,
       child: Container(
         decoration: BoxDecoration(
-          shape: rippleState.widget.shape,
+          shape: shape,
           color: color,
         ),
       ),
-      duration: rippleState.widget.animationDuration,
+      duration: animationDuration,
     );
   }
 }
