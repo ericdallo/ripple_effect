@@ -1,0 +1,23 @@
+name: example
+version: 1.0.0+1
+author: Eric Dallo <ercdll1337@gmail.com>
+homepage: https://github.com/ericdallo/ripple_effect
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ripple_effect:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+dependency_overrides:
+  ripple_effect:
+    path: ../
+
+flutter:
+  uses-material-design: true
