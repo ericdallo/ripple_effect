@@ -1,7 +1,6 @@
 name: ripple_effect
 description: An easy way to achieve a ripple effect on you flutter app.
 version: 0.1.0
-author: Eric Dallo <ercdll1337@gmail.com>
 homepage: https://github.com/ericdallo/ripple_effect
 
 environment:
