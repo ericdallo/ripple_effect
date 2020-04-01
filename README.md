@@ -1,4 +1,5 @@
 [![Pub Package](https://img.shields.io/pub/v/ripple_effect.svg?color=0175C2)](https://pub.dev/packages/ripple_effect)
+[![GitHub Actions](https://github.com/ericdallo/ripple_effect/workflows/Tests/badge.svg)](https://github.com/ericdallo/ripple_effect/actions)
 
 # ripple_effect
 
