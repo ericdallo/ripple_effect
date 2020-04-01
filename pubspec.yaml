@@ -1,6 +1,6 @@
 name: ripple_effect
 description: An easy way to start a ripple effect from any widget to the entire screen on your flutter app.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/ericdallo/ripple_effect
 
 environment:

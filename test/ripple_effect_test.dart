@@ -1,13 +1,74 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
 
 import 'package:ripple_effect/ripple_effect.dart';
 
 void main() {
-  test('adds one to input values', () {
-    final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
-    expect(() => calculator.addOne(null), throwsNoSuchMethodError);
+  testWidgets('RipplePage wraps the child', (WidgetTester tester) async {
+    final app = MaterialApp(
+      home: RipplePage(
+        pageKey: RipplePage.createGlobalKey(),
+        child: Scaffold(
+          body: Text('SOME TEXT'),
+        ),
+      ),
+    );
+
+    await tester.pumpWidget(app);
+
+    expect(find.byType(Scaffold), findsOneWidget);
+    expect(find.text('SOME TEXT'), findsOneWidget);
+  });
+
+  testWidgets('RippleEffect wraps the child', (WidgetTester tester) async {
+    final pageKey = RipplePage.createGlobalKey();
+    final effectKey = RippleEffect.createGlobalKey();
+
+    final app = MaterialApp(
+      home: RipplePage(
+        pageKey: pageKey,
+        child: Scaffold(
+          body: RippleEffect(
+            pageKey: pageKey,
+            effectKey: effectKey,
+            color: Colors.green,
+            child: RaisedButton(
+              onPressed: expectAsync0(() {}, count: 0),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pumpWidget(app);
+
+    expect(find.byType(RaisedButton), findsOneWidget);
+  });
+
+  testWidgets('RippleEffect should call callback after effect.',
+      (WidgetTester tester) async {
+    final pageKey = RipplePage.createGlobalKey();
+    final effectKey = RippleEffect.createGlobalKey();
+
+    final app = MaterialApp(
+      home: RipplePage(
+        pageKey: pageKey,
+        child: Scaffold(
+          body: RippleEffect(
+            pageKey: pageKey,
+            effectKey: effectKey,
+            color: Colors.green,
+            child: RaisedButton(
+              onPressed: expectAsync0(() {}, count: 1),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pumpWidget(app);
+
+    await tester.tap(find.byType(RaisedButton));
+    await tester.pumpAndSettle();
   });
 }
