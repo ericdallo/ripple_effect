@@ -1,5 +1,15 @@
 import 'package:flutter/widgets.dart';
 
+/// A common used fade transition to use with [RippleEffect] on navigation.
+///
+/// ```dart
+/// Future<void> toNextPage(BuildContext context) =>
+///   Navigator.of(context).push(
+///       FadeRouteBuilder(
+///         page: MyNextPage(),
+///       ),
+///   );
+/// ```
 class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
   final Widget page;
 

@@ -3,6 +3,28 @@ import 'package:rect_getter/rect_getter.dart';
 
 import 'ripple_data.dart';
 
+/// Wrap your screen with this widget.
+///
+/// The ripple effect will growth until reaches this widget.
+/// It requires a [GlobalKey] that can be generated
+/// via [RipplePage.createGlobalKey()].
+///
+/// This should be used with the [RippleEffect] widget to work.
+///
+/// ```dart
+/// class Stateless extends StatelessWidget {
+///
+///   final pageKey = RipplePage.createGlobalKey();
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return RipplePage(
+///       child: Scaffold(body: MyPage()),
+///       pageKey: pageKey,
+///     );
+///   }
+/// }
+/// ```
 class RipplePage extends StatefulWidget {
   RipplePage({
     @required GlobalKey<_RipplePageState> pageKey,
@@ -50,6 +72,23 @@ class _RipplePageState extends State<RipplePage> {
   }
 }
 
+/// Responsible to wrap the origin point of the ripple effect.
+///
+/// Often this should wrap a button widget or the animation
+/// start widget.
+/// It requires to call [RippleEffect.start] to start the animation.
+///
+/// ```dart
+/// RippleEffect(
+///   pageKey: pageKey,
+///   effectKey: effectKey,
+///   color: Colors.blue,
+///   child: FloatingActionButton(
+///     child: Icon(Icons.arrow_back),
+///     onPressed: () => RippleEffect.start(effectKey, toNextPage),
+///   ),
+/// )
+/// ```
 class RippleEffect extends StatefulWidget {
   RippleEffect({
     @required this.pageKey,
@@ -77,6 +116,7 @@ class RippleEffect extends StatefulWidget {
   static GlobalKey<_RippleEffectState> createGlobalKey() =>
       new GlobalKey<_RippleEffectState>();
 
+  /// Start the animation and call [callback] after the animation.
   static Future<void> start(
     GlobalKey<_RippleEffectState> rippleEffectKey,
     VoidCallback callback,
