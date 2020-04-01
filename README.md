@@ -1,8 +1,12 @@
+[![Pub Package](https://img.shields.io/pub/v/ripple_effect.svg?color=0175C2)](https://pub.dev/packages/ripple_effect)
+
 # ripple_effect
 
 A easy way to achieve a ripple effect on you flutter app.
 
-<img src="https://github.com/ericdallo/ripple_effect/blob/assets/ripple_effect.gif" width="240">
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/7820865/78139282-a2e49c00-73fe-11ea-9159-7ea019c87d0e.gif" width="240">
+</p>
 
 ## Usage
 
