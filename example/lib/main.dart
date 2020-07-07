@@ -40,6 +40,9 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: RippleEffect(
           pageKey: pageKey,
           effectKey: effectKey,
+          animationDuration: const Duration(seconds: 2),
+          delay: const Duration(milliseconds: 0),
+          inflateMultiplier: 1.0,
           color: Colors.purple,
           child: FloatingActionButton(
             onPressed: () => RippleEffect.start(effectKey, toNextPage),
