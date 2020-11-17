@@ -29,9 +29,11 @@ class RipplePage extends StatefulWidget {
   RipplePage({
     @required GlobalKey<_RipplePageState> pageKey,
     @required this.child,
+    this.animationEndDelay = const Duration(milliseconds: 500),
   }) : super(key: pageKey);
 
   final Widget child;
+  final Duration animationEndDelay;
 
   @override
   _RipplePageState createState() => _RipplePageState();
@@ -66,8 +68,9 @@ class _RipplePageState extends State<RipplePage> {
       setState(() {
         data.rect = data.rect?.inflate(inflateSize);
       });
-      Future.delayed(data.animationDuration + data.delay, callback)
-          .then((_) => setState(() => data.rect = null));
+      Future.delayed(data.animationDuration + data.delay, callback).then((_) =>
+          Future.delayed(widget.animationEndDelay,
+              () => setState(() => data.rect = null)));
     });
   }
 }
