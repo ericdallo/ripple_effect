@@ -32,7 +32,7 @@ void main() {
             pageKey: pageKey,
             effectKey: effectKey,
             color: Colors.green,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: expectAsync0(() {}, count: 0),
             ),
           ),
@@ -42,7 +42,7 @@ void main() {
 
     await tester.pumpWidget(app);
 
-    expect(find.byType(RaisedButton), findsOneWidget);
+    expect(find.byType(ElevatedButton), findsOneWidget);
   });
 
   testWidgets('RippleEffect should call callback after effect.',
@@ -58,7 +58,7 @@ void main() {
             pageKey: pageKey,
             effectKey: effectKey,
             color: Colors.green,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: expectAsync0(() {}, count: 1),
             ),
           ),
@@ -68,7 +68,7 @@ void main() {
 
     await tester.pumpWidget(app);
 
-    await tester.tap(find.byType(RaisedButton));
+    await tester.tap(find.byType(ElevatedButton));
     await tester.pumpAndSettle();
   });
 }
